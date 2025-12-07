@@ -19,13 +19,12 @@ Input → Transform → Output
 
 - PTransform – operation applied to data
 
-  ```java
+   ```java
   pipeline
     .apply(Read.from(source))
     .apply(Transform.of(...))
     .apply(Write.to(sink));
-```
----
+  ```
 
 # 2. Functional Programming Patterns
 
