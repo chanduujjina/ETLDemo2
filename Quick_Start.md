@@ -10,3 +10,19 @@ This guide summarizes all critical design patterns needed for real-world Beam de
 ```css
 Input → Transform → Output
 ```
+
+## Beam uses three main abstractions:
+
+- Pipeline – workflow container
+
+- PCollection – dataset
+
+- PTransform – operation applied to data
+
+- ```java
+  pipeline
+    .apply(Read.from(source))
+    .apply(Transform.of(...))
+    .apply(Write.to(sink));
+
+```
