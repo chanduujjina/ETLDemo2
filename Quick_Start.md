@@ -117,3 +117,10 @@ JdbcIO.<User>read()
 - Flink
 
 - Spark
+
+# 5. Factory Pattern
+
+## Beam uses factories to generate coders, transforms, and IOs.
+```java
+Coder<String> coder = StringUtf8Coder.of();
+```
