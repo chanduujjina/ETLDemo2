@@ -80,3 +80,40 @@ JdbcIO.<User>read()
     .withQuery("SELECT * FROM users")
     .withRowMapper((rs) -> new User(rs.getInt("id"), rs.getString("name")));
 ```
+# 4. Strategy Pattern
+
+## Beam provides MANY interchangeable strategies:
+
+### ✔ Windowing Strategies
+
+- Fixed
+
+- Sliding
+
+- Session
+
+### ✔ Trigger Strategies
+
+- AfterWatermark
+
+- AfterProcessingTime
+
+- Composite triggers
+
+### ✔ Coder Strategies
+
+- AvroCoder
+
+- ByteArrayCoder
+
+- SerializableCoder
+
+### ✔ Runner Strategies
+
+ - DirectRunner
+
+- Dataflow
+
+- Flink
+
+- Spark
