@@ -155,3 +155,15 @@ Coder<String> coder = StringUtf8Coder.of();
     .apply(WithTimestamps.of(x -> x.getEventTime()))
     .apply(Window.into(FixedWindows.of(Duration.standardSeconds(30))));
  ```
+
+
+ # 9. Template Method Pattern (DoFn Lifecycle)
+
+##  Beam calls these callback hooks:
+ ```java
+ @Setup
+ @StartBundle
+ @ProcessElement
+ @FinishBundle
+ @Teardown
+```
