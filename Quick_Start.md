@@ -146,3 +146,12 @@ Coder<String> coder = StringUtf8Coder.of();
 - Backpressure
 
 ### Good to understand for streaming pipeline debugging.
+
+# 8. Decorator Pattern
+
+## Each PTransform decorates the PCollection with new behavior:
+ ```java
+  input
+    .apply(WithTimestamps.of(x -> x.getEventTime()))
+    .apply(Window.into(FixedWindows.of(Duration.standardSeconds(30))));
+ ```
