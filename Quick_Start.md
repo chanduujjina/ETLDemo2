@@ -130,3 +130,19 @@ Coder<String> coder = StringUtf8Coder.of();
 ```java
 .withRowMapper(rs -> new Student(rs.getInt("id"), rs.getString("name")));
 ```
+
+# 7. Observer Pattern (Internal Beam Behavior)
+
+## Beam runners “observe” and react to:
+
+- Watermarks
+
+- Bundles
+
+- Trigger firing
+
+- Progress
+
+- Backpressure
+
+### Good to understand for streaming pipeline debugging.
