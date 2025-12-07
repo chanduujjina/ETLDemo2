@@ -63,3 +63,20 @@ Beam heavily uses functional programming concepts.
   OR
   .apply(Combine.perKey(new Sum.CombineFn()));
 ```
+
+# 3. Builder Pattern
+ ## Beam IOs mostly use builder syntax:
+
+ ```java
+JdbcIO.<User>read()
+    .withDataSourceConfiguration(
+        JdbcIO.DataSourceConfiguration.create(
+            "com.mysql.cj.jdbc.Driver",
+            "jdbc:mysql://localhost:3306/db"
+        )
+        .withUsername("root")
+        .withPassword("root")
+    )
+    .withQuery("SELECT * FROM users")
+    .withRowMapper((rs) -> new User(rs.getInt("id"), rs.getString("name")));
+```
