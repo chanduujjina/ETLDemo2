@@ -43,4 +43,21 @@ Beam heavily uses functional programming concepts.
 }));
 
  ```
+## ✔ Filter Pattern
+ ```java
+  .apply(Filter.by(x -> x.isValid()));
+ ```
+## ✔ FlatMap Pattern
+  ```
+  .apply(ParDo.of(new DoFn<List<String>, String>() {
+    @ProcessElement
+    public void process(ProcessContext c) {
+        for (String s : c.element()) c.output(s);
+    }
+}));
+```
 
+## ✔ Reduce Pattern (Combine / GroupByKey)
+ ```
+  .apply(Combine.globally(Sum.ofIntegers()));
+```
