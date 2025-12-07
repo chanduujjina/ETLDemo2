@@ -29,3 +29,18 @@ Input → Transform → Output
 # 2. Functional Programming Patterns
 
 Beam heavily uses functional programming concepts.
+
+## ✔ Map Pattern (ParDo / DoFn)
+
+### Applies logic to each element:
+
+ ```java
+  .apply(ParDo.of(new DoFn<String, String>() {
+    @ProcessElement
+    public void process(ProcessContext c) {
+        c.output(c.element().toUpperCase());
+    }
+}));
+
+ ```
+
