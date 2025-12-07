@@ -124,3 +124,9 @@ JdbcIO.<User>read()
 ```java
 Coder<String> coder = StringUtf8Coder.of();
 ```
+# 6. Adapter Pattern
+
+## Used to convert external data formats into Beam-friendly objects.
+```java
+.withRowMapper(rs -> new Student(rs.getInt("id"), rs.getString("name")));
+```
