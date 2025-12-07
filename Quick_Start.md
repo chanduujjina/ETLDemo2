@@ -60,4 +60,6 @@ Beam heavily uses functional programming concepts.
 ## ✔ Reduce Pattern (Combine / GroupByKey)
  ```
   .apply(Combine.globally(Sum.ofIntegers()));
+  OR
+  .apply(Combine.perKey(new Sum.CombineFn()));
 ```
