@@ -179,3 +179,24 @@ public class MyFn extends DoFn<String, String> {
     }
 }
 ```
+
+
+# 10. Dependency Injection Pattern
+
+## Used for:
+
+- Database connections
+
+- Kafka producers/consumers
+
+- External API clients
+
+- Configurations
+
+### Example:
+```java
+@Setup
+public void setup() {
+    dataSource = MyDbFactory.create();
+}
+```
