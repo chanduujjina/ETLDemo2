@@ -167,3 +167,15 @@ Coder<String> coder = StringUtf8Coder.of();
  @FinishBundle
  @Teardown
 ```
+```
+public class MyFn extends DoFn<String, String> {
+
+    @Setup
+    public void init() {}
+
+    @ProcessElement
+    public void process(ProcessContext c) {
+        c.output(c.element().toUpperCase());
+    }
+}
+```
