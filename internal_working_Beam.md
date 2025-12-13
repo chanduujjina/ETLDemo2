@@ -63,8 +63,7 @@ public void process(
 - From where to pass
 
 ### Windowing & Watermark – Sequence Diagram
-
-```sequenceDiagram
+sequenceDiagram
     participant Source as Event Source
     participant Beam as Apache Beam
     participant WM as Watermark
@@ -90,4 +89,4 @@ public void process(
     Source->>Beam: Late Event D (eventTime = 30s)
     Beam->>WM: Watermark already > 60s
     Beam-->>Win: Late data (dropped or side output)
-```
+
