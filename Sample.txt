@@ -1,0 +1,1 @@
+apache beam can process data parallel with out data incosistency
