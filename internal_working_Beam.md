@@ -121,3 +121,43 @@ sequenceDiagram
     Trg->>Win: Event-time trigger fires
     Win->>Sink: Emit aggregated result
 ```
+
+2️⃣ Late Data with Allowed Lateness Diagram
+
+```mermaid
+sequenceDiagram
+    participant Src as Event Source
+    participant Beam as Apache Beam
+    participant WM as Watermark
+    participant Win as Fixed Window (0–60s)
+    participant Trg as Trigger
+    participant Sink as Output
+    participant Late as Late Data Output
+
+    Src->>Beam: Event A (t=10s)
+    Beam->>WM: Watermark → 10s
+    Beam->>Win: Add to Window [0–60)
+
+    Src->>Beam: Event B (t=50s)
+    Beam->>WM: Watermark → 50s
+    Beam->>Win: Add to Window [0–60)
+
+    Src->>Beam: Event C (t=70s)
+    Beam->>WM: Watermark → 70s
+
+    WM->>Trg: Watermark passes window end
+    Trg->>Win: Fire (ON-TIME)
+    Win->>Sink: Emit ON-TIME result
+
+    Note over Win: Allowed lateness = 30s
+
+    Src->>Beam: Late Event D (t=40s)
+    Beam->>WM: Watermark = 70s
+    Beam->>Win: Still within allowed lateness
+
+    Trg->>Win: Fire again (LATE)
+    Win->>Sink: Emit UPDATED result
+
+    Src->>Beam: Too Late Event E (t=20s)
+    Beam-->>Late: Drop or send to late-data output
+```
