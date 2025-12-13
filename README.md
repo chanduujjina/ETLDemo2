@@ -1,0 +1,15 @@
+## Below is the sql script
+
+```sql
+ create table cc_student_info (std_id int,std_name varchar(255),gender varchar(255),phoneNumber varchar(255),skillset varchar(255),total_experince int);
+```
+
+## Create excel any of your drives
+
+```
+https://github.com/chanduujjina/ETLDemo2/blob/develop/CC_Student_info.xlsx
+```
+
+
+
+
