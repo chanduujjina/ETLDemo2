@@ -91,3 +91,33 @@ sequenceDiagram
     Beam->>WM: Watermark already > 60s
     Beam-->>Win: Late data (dropped or side output)
 ```
+
+
+1️⃣ Window + Trigger Diagram
+
+```mermaid
+sequenceDiagram
+    participant Src as Event Source
+    participant Beam as Apache Beam
+    participant Win as Fixed Window (0–60s)
+    participant Trg as Event-Time Trigger
+    participant Sink as Output
+
+    Src->>Beam: Event A (t=10s)
+    Beam->>Win: Assign to Window [0–60)
+
+    Src->>Beam: Event B (t=20s)
+    Beam->>Win: Assign to Window [0–60)
+
+    Trg-->>Win: Trigger condition not met
+
+    Src->>Beam: Event C (t=40s)
+    Beam->>Win: Assign to Window [0–60)
+
+    Trg-->>Win: Waiting for watermark
+
+    Note over Beam: Watermark advances to 60s
+
+    Trg->>Win: Event-time trigger fires
+    Win->>Sink: Emit aggregated result
+```
