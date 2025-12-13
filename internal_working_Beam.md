@@ -55,4 +55,9 @@ public void process(
     out.output(line + " @ " + ts);
 }
 ```
+### Beam decides :
+- What to pass
 
+- When to pass
+
+- From where to pass
