@@ -93,7 +93,7 @@ sequenceDiagram
 ```
 
 
-1️⃣ Window + Trigger Diagram
+## 1️⃣ Window + Trigger Diagram
 
 ```mermaid
 sequenceDiagram
@@ -122,7 +122,13 @@ sequenceDiagram
     Win->>Sink: Emit aggregated result
 ```
 
-2️⃣ Late Data with Allowed Lateness Diagram
+# ## Key idea
+
+- Window decides where events go
+
+- Trigger decides when results are emitted
+
+## 2️⃣ Late Data with Allowed Lateness Diagram
 
 ```mermaid
 sequenceDiagram
@@ -161,3 +167,8 @@ sequenceDiagram
     Src->>Beam: Too Late Event E (t=20s)
     Beam-->>Late: Drop or send to late-data output
 ```
+### Mental Model (Easy to Remember)
+- Window → groups data
+- Watermark → time progress
+- Trigger → when to emit
+- Allowed lateness → how long to wait for late events
