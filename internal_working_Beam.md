@@ -61,3 +61,33 @@ public void process(
 - When to pass
 
 - From where to pass
+
+### Windowing & Watermark – Sequence Diagram
+
+```sequenceDiagram
+    participant Source as Event Source
+    participant Beam as Apache Beam
+    participant WM as Watermark
+    participant Win as Fixed Window (0–60s)
+    participant Agg as Aggregation
+    participant Sink as Output Sink
+
+    Source->>Beam: Event A (eventTime = 10s)
+    Beam->>WM: Update watermark → 10s
+    Beam->>Win: Assign Event A to Window [0–60)
+
+    Source->>Beam: Event B (eventTime = 40s)
+    Beam->>WM: Update watermark → 40s
+    Beam->>Win: Assign Event B to Window [0–60)
+
+    Source->>Beam: Event C (eventTime = 70s)
+    Beam->>WM: Update watermark → 70s
+
+    WM->>Win: Watermark passes window end (60s)
+    Win->>Agg: Trigger computation
+    Agg->>Sink: Emit aggregated result
+
+    Source->>Beam: Late Event D (eventTime = 30s)
+    Beam->>WM: Watermark already > 60s
+    Beam-->>Win: Late data (dropped or side output)
+```
