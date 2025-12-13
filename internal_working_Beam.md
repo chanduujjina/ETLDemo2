@@ -63,7 +63,7 @@ public void process(
 - From where to pass
 
 ### Windowing & Watermark – Sequence Diagram
-```
+```mermaid
 sequenceDiagram
     participant Source as Event Source
     participant Beam as Apache Beam
