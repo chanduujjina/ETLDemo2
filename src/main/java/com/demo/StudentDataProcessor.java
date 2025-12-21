@@ -21,8 +21,8 @@ public class StudentDataProcessor {
 
 		p.apply("Excel input Path", org.apache.beam.sdk.transforms.Create.of("E://Chandu//CC_Student_info.xlsx"))
 				.apply("Read Excel", ParDo.of(new ReadExcelFn()))
-				.apply("WriteToDB", saveToDatabase());
 
+				.apply("WriteToDB", saveToDatabase());
 		p.run().waitUntilFinish();
 
 	}
