@@ -29,3 +29,24 @@
 
 
 ![alt-text](Avro_file_format.png)
+
+
+## The role of the schema
+
+### The schema defines:
+
+- Field names
+
+- Data types
+
+- Default values
+
+- Compatibility rules
+
+### Key idea:
+
+- Schema is not repeated for every record
+
+- It is written once (or referenced externally)
+
+- This makes Avro extremely efficient for large datasets.
