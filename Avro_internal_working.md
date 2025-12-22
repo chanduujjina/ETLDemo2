@@ -73,3 +73,22 @@ Data Blocks
 - Blocks are compressed independently
 
 - Readers automatically decompress blocks
+
+
+## Why block-level compression matters
+
+### Block compression gives:
+
+- Smaller file size
+
+- Faster disk reads
+
+- Faster network transfer
+
+- Better parallel processing
+
+### This is why Avro works well with:
+
+- Streaming pipelines
+
+- Distributed processing engines
