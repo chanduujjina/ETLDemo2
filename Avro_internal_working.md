@@ -50,3 +50,17 @@
 - It is written once (or referenced externally)
 
 - This makes Avro extremely efficient for large datasets.
+
+
+## How Avro stores large data (conceptually)
+
+```scss
+Header
+ ├─ Schema
+ ├─ Metadata
+Data Blocks
+ ├─ Block 1 (many records)
+ ├─ Block 2 (many records)
+ ├─ Block 3 (many records)
+
+```
