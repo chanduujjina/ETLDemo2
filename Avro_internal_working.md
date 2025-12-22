@@ -121,3 +121,24 @@ Data Blocks
 - Block-by-block flushing
 
 - Streaming-friendly compression
+
+
+## Schema evolution (why enterprises choose Avro)
+
+### Avro allows:
+
+- Adding new fields
+
+- Removing old fields
+
+- Renaming fields (via aliases)
+
+### Without breaking:
+
+- Old producers
+
+- Old consumers
+
+- Historical data
+
+### This is critical for long-running pipelines.
