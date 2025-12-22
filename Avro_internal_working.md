@@ -10,3 +10,17 @@
 -  Block-level compression
 
 -  Streaming-friendly writes
+
+## What is a codec? 
+
+### A codec is a compression algorithm used by Avro to compress blocks of records inside an Avro file.
+
+### Common codecs:
+
+- snappy (default for streaming)
+
+- deflate
+
+- bzip2
+
+- zstandard
