@@ -28,3 +28,4 @@
 ## Conceptual Guide: Avro in Streaming & Big-Data Systems
 
 
+![alt-text](image-path)
