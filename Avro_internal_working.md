@@ -103,3 +103,21 @@ Data Blocks
 | **Bzip2**     | Archival data            |
 | **Zstandard** | Modern high-compression  |
 
+
+## Why Avro fits streaming systems
+
+### Streaming systems require:
+
+- Continuous writes
+
+- No need to know dataset size upfront
+
+- Fast serialization/deserialization
+
+### Avro supports:
+
+- Append-only writes
+
+- Block-by-block flushing
+
+- Streaming-friendly compression
