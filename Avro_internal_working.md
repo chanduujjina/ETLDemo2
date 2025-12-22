@@ -142,3 +142,18 @@ Data Blocks
 - Historical data
 
 ### This is critical for long-running pipelines.
+
+## Where Avro is commonly used
+
+### Avro is widely used in:
+
+- Message streaming platforms
+
+- Data ingestion pipelines
+
+- Data lakes
+
+- Big-data processing frameworks
+
+### Because it balances:
+- performance + flexibility + scalability
