@@ -24,3 +24,7 @@
 - bzip2
 
 - zstandard
+
+## Conceptual Guide: Avro in Streaming & Big-Data Systems
+
+
