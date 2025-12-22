@@ -92,3 +92,14 @@ Data Blocks
 - Streaming pipelines
 
 - Distributed processing engines
+
+
+## Common codecs (conceptual)
+
+| Codec         | Purpose                  |
+| ------------- | ------------------------ |
+| **Snappy**    | Fast streaming pipelines |
+| **Deflate**   | Balanced storage         |
+| **Bzip2**     | Archival data            |
+| **Zstandard** | Modern high-compression  |
+
