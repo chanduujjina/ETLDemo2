@@ -64,3 +64,12 @@ Data Blocks
  ├─ Block 3 (many records)
 
 ```
+### Each block may contain thousands of records.
+
+## What is a codec (core concept)
+### A codec is a compression algorithm applied to each data block.
+- Compression is per block, not per record
+
+- Blocks are compressed independently
+
+- Readers automatically decompress blocks
