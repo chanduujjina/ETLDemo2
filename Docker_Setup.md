@@ -39,7 +39,7 @@ kafka-topics \
 kafka-topics \
   --bootstrap-server localhost:9092 \
   --create \
-  --topic employee-topic \
+  --topic studentInfo-topic \
   --partitions 1 \
   --replication-factor 1
 ```
@@ -48,7 +48,7 @@ kafka-topics \
 ```bash
 kafka-console-producer \
   --bootstrap-server localhost:9092 \
-  --topic employee-topic
+  --topic studentInfo-topic
 ```
 
 ## Press Ctrl + D to exit.
@@ -57,6 +57,8 @@ kafka-console-producer \
 ```bash
 kafka-console-consumer \
   --bootstrap-server localhost:9092 \
-  --topic employee-topic \
+  --topic studentInfo-topic \
   --from-beginning
 ```
+
+
