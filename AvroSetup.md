@@ -53,3 +53,8 @@ Plugin
   ]
 }
 ```
+### windows format file
+
+```
+%s-%05d-of-%05d%s
+```
