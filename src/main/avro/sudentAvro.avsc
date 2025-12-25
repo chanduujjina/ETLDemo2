@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "StudentDetailAvro",
+  "namespace": "com.demo.avro",
+  "fields": [
+    { "name": "id", "type": "int" },
+    { "name": "name", "type": "string" },
+    { "name": "gender", "type": "string" },
+    { "name": "barnch", "type": "string" }
+   
+  ]
+}

@@ -1,6 +1,10 @@
 package com.demo.connector;
 
+import java.util.Map;
+
 import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.extensions.avro.io.AvroIO;
+import org.apache.beam.sdk.io.FileIO;
 import org.apache.beam.sdk.io.jdbc.JdbcIO;
 import org.apache.beam.sdk.io.jdbc.JdbcIO.DataSourceConfiguration;
 import org.apache.beam.sdk.io.jdbc.JdbcIO.Write;
@@ -9,9 +13,17 @@ import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.options.StreamingOptions;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.ParDo;
+import org.apache.beam.sdk.transforms.windowing.FixedWindows;
+import org.apache.beam.sdk.transforms.windowing.Window;
 import org.apache.beam.sdk.values.KV;
+import org.apache.beam.sdk.values.PCollection;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.checkerframework.checker.initialization.qual.Initialized;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.UnknownKeyFor;
+import org.joda.time.Duration;
 
+import com.demo.avro.StudentDetailAvro;
 import com.demo.dto.Student;
 import com.demo.dto.StudentRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,14 +46,38 @@ public class StudentDataProcessor {
 		Pipeline pipeLine = Pipeline.create(streamingOptions);
 		
 		
-		pipeLine.apply("Connect to Kafka",
+		
+		PCollection<Student> pcollection = pipeLine.apply("Connect to Kafka",
 				KafkaIO.<String, String>read().withBootstrapServers("localhost:9092").withTopic("studentInfo-topic")
 						.withKeyDeserializer(StringDeserializer.class).withValueDeserializer(StringDeserializer.class)
+						.withConsumerConfigUpdates(
+					            Map.of(
+					                "group.id", "student-etl-group",
+					                "auto.offset.reset", "earliest"
+					            )
+					        )
 						.withoutMetadata())
-				.apply("Read Data From From Kafka", ParDo.of(new StudentInfoDesrilizer())).
-				 apply("Save student details",saveStudentDetail());
+				.apply("Read Data From From Kafka", ParDo.of(new StudentInfoDesrilizer()));
+		
+		pcollection.apply("Load to avro object", ParDo.of(new LoadAvroData()))
+		.apply("Window", Window.<StudentDetailAvro>into(FixedWindows.of(Duration.standardSeconds(30))))
+		.apply("write to avro file", FileIO.<StudentDetailAvro>write()
+				.via(AvroIO.sink(StudentDetailAvro.class)).to("output/avro").withNaming(new FileNameUtil("student", ".avro")).withNumShards(1));
+		       
+				pcollection.apply("Save student details",saveStudentDetail());
 		
 		pipeLine.run().waitUntilFinish();
+	}
+	
+	static class LoadAvroData extends DoFn<Student, StudentDetailAvro>{
+		
+		@ProcessElement
+		public void processData(@Element Student std, OutputReceiver<StudentDetailAvro> receiver) {
+			StudentDetailAvro studentDetailAvro = StudentDetailAvro.newBuilder().
+					setId(std.getId()).setName(std.getName()).setBarnch(std.getBarnch()).setGender(std.getGender()).build();
+			
+			receiver.output(studentDetailAvro);
+		}
 	}
 
 	private static Write<Student> saveStudentDetail() {
