@@ -39,7 +39,7 @@ kafka-topics \
 kafka-topics \
   --bootstrap-server localhost:9092 \
   --create \
-  --topic employee-topic \
+  --topic studentInfo-topic \
   --partitions 1 \
   --replication-factor 1
 ```
