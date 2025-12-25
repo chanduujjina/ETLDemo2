@@ -57,6 +57,6 @@ kafka-console-producer \
 ```bash
 kafka-console-consumer \
   --bootstrap-server localhost:9092 \
-  --topicstudentInfo-topic \
+  --topic studentInfo-topic \
   --from-beginning
 ```
