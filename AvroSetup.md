@@ -36,3 +36,20 @@ Plugin
             </plugin>
         </plugins>
 ```
+
+### Sample avsc file
+
+```avsc
+{
+  "type": "record",
+  "name": "ClassName",
+  "namespace": "com.demo.avro",
+  "fields": [
+    { "name": "field1", "type": "int" },
+    { "name": "field2", "type": "string" },
+    { "name": "field3", "type": "int" },
+    { "name": "field4", "type": "string" }
+   
+  ]
+}
+```
