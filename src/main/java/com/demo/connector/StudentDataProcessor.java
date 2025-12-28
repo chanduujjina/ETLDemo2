@@ -1,6 +1,7 @@
 package com.demo.connector;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.extensions.avro.io.AvroIO;
@@ -48,12 +49,12 @@ public class StudentDataProcessor {
 		
 		
 		PCollection<Student> pcollection = pipeLine.apply("Connect to Kafka",
-				KafkaIO.<String, String>read().withBootstrapServers("localhost:9092").withTopic("studentInfo-topic")
+				KafkaIO.<String, String>read().withBootstrapServers("localhost:29092").withTopic("studentInfo-topic")
 						.withKeyDeserializer(StringDeserializer.class).withValueDeserializer(StringDeserializer.class)
 						.withConsumerConfigUpdates(
 					            Map.of(
-					                "group.id", "student-etl-group",
-					                "auto.offset.reset", "earliest"
+					                "group.id", "student-etl-group"
+					               // "auto.offset.reset", "earliest"
 					            )
 					        )
 						.withoutMetadata())
@@ -62,7 +63,7 @@ public class StudentDataProcessor {
 		pcollection.apply("Load to avro object", ParDo.of(new LoadAvroData()))
 		.apply("Window", Window.<StudentDetailAvro>into(FixedWindows.of(Duration.standardSeconds(30))))
 		.apply("write to avro file", FileIO.<StudentDetailAvro>write()
-				.via(AvroIO.sink(StudentDetailAvro.class)).to("output/avro").withNaming(new FileNameUtil("student", ".avro")).withNumShards(1));
+				.via(AvroIO.sink(StudentDetailAvro.class)).to("output/avro").withNaming(new FileNameUtil("student"+UUID.randomUUID().toString(), ".avro")).withNumShards(1));
 		       
 				pcollection.apply("Save student details",saveStudentDetail());
 		
@@ -82,7 +83,7 @@ public class StudentDataProcessor {
 
 	private static Write<Student> saveStudentDetail() {
 		return JdbcIO.<Student>write().
-				 withDataSourceConfiguration(DataSourceConfiguration.create("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/etl_db").
+				 withDataSourceConfiguration(DataSourceConfiguration.create("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3307/etl_db").
 						 withUsername("root").withPassword("root")).withStatement(StudentDataProcessor.INSERT_QUERY).
 				 withPreparedStatementSetter((std,ps)-> {
 					 ps.setInt(1, std.getId());
